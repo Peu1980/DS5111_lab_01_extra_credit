@@ -1,20 +1,27 @@
 default:
 	@cat makefile
 
-synthetic_data.csv:
-	wget https://gist.github.com/Niarfe/25100a860cbb660150a3fec87378d8ac/synthetic_data.csv
+pg1065.txt:
+	wget https://www.gutenberg.org/cache/epub/1065/pg1065.txt
 
-square_wave.png:
-	gnuplot -e "set datafile separator ','; set term png; set output 'square_wave.png'; plot 'synthetic_data.csv' using 1:2 with lines"
+raven_lines.txt:
+	grep -i "Raven" pg1065.txt > raven_lines.txt
 
-fibonachi.png:
-	gnuplot -e "set datafile separator ','; set term png; set output 'fibonachi.png'; plot 'synthetic_data.csv' using 1:3 with lines"
+number_of_Raven.txt:
+	grep -o Raven  raven_lines.txt | wc -l > number_of_Raven.txt
+
+number_of_RAVEN.txt:
+	grep -o RAVEN  raven_lines.txt | wc -l > number_of_RAVEN.txt
+
+number_of_raven.txt:
+	grep -o raven  raven_lines.txt | wc -l > number_of_raven.txt
+
+all:
+	grep -o Raven  raven_lines.txt | wc -l > number_of_Raven.txt
+	grep -o RAVEN  raven_lines.txt | wc -l > number_of_RAVEN.txt
+	grep -o raven  raven_lines.txt | wc -l > number_of_raven.txt
 
 clean:
-	rm *.csv *.png
-
-all_images:
-	gnuplot -e "set datafile separator ','; set term png; set output 'square_wave.png'; plot 'synthetic_data.csv' using 1:2 with lines"  -e "set datafile separator ','; set term png; set output 'fibonachi.png'; plot 'synthetic_data.csv' using 1:3 with lines"
-
+	rm *.txt
 
 
